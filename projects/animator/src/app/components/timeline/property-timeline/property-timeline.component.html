@@ -1,0 +1,12 @@
+<div class="property-label">{{ timeline.property | async }}</div>
+<div #container style="position: relative">
+  <div class="keyframe" (mousedown)="dragStart(keyframe, $event)" *ngFor="let keyframe of timeline.keyframes | async" [style.transform]="'translateX('+(keyframe.time * pixelsPerMillisecond)+'px)'">
+    <div class="diamond"></div>
+</div>
+
+<div 
+class="tween" 
+*ngFor="let tween of timeline.tweens | async" [style.transform]="'translateX('+(tween.startTime * pixelsPerMillisecond)+'px)'" [style.width]="((tween.endTime-tween.startTime)*pixelsPerMillisecond) +'px'" >
+
+</div>
+</div>

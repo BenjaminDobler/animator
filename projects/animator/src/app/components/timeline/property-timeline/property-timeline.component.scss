@@ -1,0 +1,45 @@
+
+
+:host {
+    display: flex;
+    width: 800px;
+    height: 20px;
+    background: #dedede;
+    border-top: 1px solid #000;
+    user-select: none;
+}
+
+.property-label {
+    width: 100px;
+    overflow: hidden;
+    border-right: 1px solid #000;
+
+}
+
+.keyframe {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1px;
+    height: 10px;
+    background: #000;
+    overflow: visible;
+
+    .diamond {
+        width: 10px;
+        height: 10px;
+        background: #ff0000;
+        transform: rotate(-45deg);
+        position: absolute;
+        top: 5px;
+        left: -5px;
+    }
+}
+
+.tween {
+    position: absolute;
+    left: 0;
+    top: 9px;
+    height: 2px;
+    background: #ff0000;
+}

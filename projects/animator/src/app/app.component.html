@@ -1,0 +1,13 @@
+
+
+
+<stage [animatebleElements]="timelineService.elements"></stage>
+
+<timeline [timeline]="timelineService.timeline" [pixelsPerMillisecond]="timelineService.pixelsPerMillisecond" ></timeline>
+
+<button (click)="newElement()">New Element</button>
+
+<button (click)="play()">Play</button>
+<button (click)="updateValue()">Update</button>
+<button (click)="deleteProperty()">Delete</button>
+<button (click)="updateTime()">Time</button>

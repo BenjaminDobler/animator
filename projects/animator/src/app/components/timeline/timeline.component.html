@@ -1,0 +1,14 @@
+
+
+
+
+<div style="width: 800px;height: 20px;background: #0000ff">
+
+</div>
+
+<div (mousedown)="dragStart($event)" class="scrubbar">
+    <div class="knob"></div>
+    <div class="line"></div>
+</div>
+
+<element-timeline *ngFor="let elementTimeline of timeline.elementTimelines |async" [timeline]="elementTimeline" [pixelsPerMillisecond]="pixelsPerMillisecond"></element-timeline>
