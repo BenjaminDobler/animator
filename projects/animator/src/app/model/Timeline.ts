@@ -30,6 +30,8 @@ export interface Keyframe {
 export class AnimatableElement {
     x: BehaviorSubject<number> = new BehaviorSubject<number>(0);
     y: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+    opacity: BehaviorSubject<number> = new BehaviorSubject<number>(1);
+
     ref: HTMLElement;
 }
 

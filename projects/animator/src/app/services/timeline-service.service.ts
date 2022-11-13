@@ -9,6 +9,9 @@ import { Keyframe, PropertyTimeline, ElementTimeline, Timeline, AnimatableElemen
 })
 export class TimelineServiceService {
 
+
+  selectedAnimatable:BehaviorSubject<AnimatableElement> = new BehaviorSubject<AnimatableElement>(null);
+
   gsapTimeline;
 
   elements: BehaviorSubject<AnimatableElement[]> = new BehaviorSubject<AnimatableElement[]>([]);
@@ -35,6 +38,10 @@ export class TimelineServiceService {
     })
 
     
+  }
+
+  setSelectedAnimatable(animatable: AnimatableElement) {
+    this.selectedAnimatable.next(animatable);
   }
 
   addNewAnimatebleElement() {

@@ -8,6 +8,7 @@ import { PropertyTimelineComponent } from './components/timeline/property-timeli
 import { StageComponent } from './components/stage/stage.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { AnimatableElementComponent } from './components/animatable-element/animatable-element.component';
+import { PropertyInspectorComponent } from './components/property-inspector/property-inspector.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { AnimatableElementComponent } from './components/animatable-element/anim
     StageComponent,
     TimelineComponent,
     AnimatableElementComponent,
+    PropertyInspectorComponent,
   ],
   imports: [
     BrowserModule,

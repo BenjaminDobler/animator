@@ -1,7 +1,8 @@
-import { AfterViewInit, ElementRef, Host } from '@angular/core';
+import { AfterViewInit, ElementRef, Host, HostListener } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
-import { fromEvent, switchMap, takeUntil, tap } from 'rxjs';
+import { combineLatest, fromEvent, switchMap, takeUntil, tap } from 'rxjs';
 import { AnimatableElement, Timeline } from '../../model/Timeline';
+import { TimelineServiceService } from '../../services/timeline-service.service';
 import { StageComponent } from '../stage/stage.component';
 import { TimelineComponent } from '../timeline/timeline.component';
 
@@ -31,10 +32,19 @@ export class AnimatableElementComponent implements OnInit, AfterViewInit {
   @Input()
   public set animatebleElement(value: AnimatableElement) {
     this._animatebleElement = value;
+    this._animatebleElement.x.subscribe((val)=>{
+
+    });
+
+    combineLatest([this._animatebleElement.x, this.animatebleElement.y]).subscribe(([positionX,positionY])=>{
+      this.el.nativeElement.style.transform = `translate(${positionX}px,${positionY}px)`;
+
+    })
+
     this._animatebleElement.ref = this.el.nativeElement;
   }
 
-  constructor(@Host() private parent: StageComponent, private el: ElementRef) {
+  constructor(@Host() private parent: StageComponent, private el: ElementRef, private timelineService: TimelineServiceService) {
     console.log('Parent', this.parent);
   }
 
@@ -42,6 +52,11 @@ export class AnimatableElementComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.initDragDrop();
+  }
+
+  @HostListener('click', ['$event.target'])
+  onClick(btn) {
+    this.timelineService.setSelectedAnimatable(this.animatebleElement);
   }
 
   initDragDrop() {
