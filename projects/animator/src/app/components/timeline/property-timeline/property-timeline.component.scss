@@ -3,6 +3,7 @@
 :host {
     display: flex;
     width: 800px;
+    min-width: 100vw;
     height: 20px;
     background: #dedede;
     border-top: 1px solid #000;
@@ -22,7 +23,6 @@
     top: 0;
     width: 1px;
     height: 10px;
-    background: #000;
     overflow: visible;
 
     .diamond {
