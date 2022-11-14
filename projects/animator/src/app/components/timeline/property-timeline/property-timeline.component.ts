@@ -22,7 +22,6 @@ export class PropertyTimelineComponent implements OnInit {
 
   @Input()
   set timeline(value: PropertyTimeline) {
-    console.log('timeline changed ', value);
     this._timeline = value;
   }
 
@@ -38,18 +37,19 @@ export class PropertyTimelineComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  dragStart(keyframe: Keyframe, event: MouseEvent) {
-    console.log('start drag ', this.container);
+  selectTween(tween) {
+    this.timelineService.selectedKeyframe.next(tween.keyframe);
+  }
 
+  dragStart(keyframe: Keyframe, event: MouseEvent) {
     const containerRect = this.container.nativeElement.getBoundingClientRect();
     const rect = (event.target as HTMLElement).getBoundingClientRect();
     const startX = rect.left - containerRect.left;
     const keyframeElement = event.currentTarget as HTMLElement;
-    console.log(startX);
 
     const mouseUp$ = fromEvent(window, 'mouseup');
     const startMouse = event.clientX;
-    let newTime = 0;
+    let newTime = keyframe.time;
     fromEvent(window, 'mousemove')
       .pipe(takeUntil(mouseUp$))
       .subscribe(
@@ -66,7 +66,6 @@ export class PropertyTimelineComponent implements OnInit {
         },
         () => {},
         () => {
-          console.log('complete');
           // this.timelineService.updateTime(this.timeline, keyframe, newTime);
           const keyframes = this.timeline.keyframes.getValue();
           keyframe.time = newTime;

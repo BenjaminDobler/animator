@@ -25,12 +25,17 @@ export class PropertyTimeline {
 export interface Keyframe {
     time: number;
     value: number;
+    easing?: any;
+    easingOption: string;
 }
 
 export class AnimatableElement {
     x: BehaviorSubject<number> = new BehaviorSubject<number>(0);
     y: BehaviorSubject<number> = new BehaviorSubject<number>(0);
     opacity: BehaviorSubject<number> = new BehaviorSubject<number>(1);
+    borderRadius: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+    backgroundColor: BehaviorSubject<number|string> = new BehaviorSubject<number|string>('#00ff00');
+
     rotation: BehaviorSubject<number> = new BehaviorSubject<number>(0);
     ref: HTMLElement;
 }
@@ -42,4 +47,10 @@ export interface Tween {
     property: string;
     startTime: number;
     endTime: number;
+    keyframe: Keyframe;
 }
+
+
+
+
+

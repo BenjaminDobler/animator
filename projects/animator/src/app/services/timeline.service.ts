@@ -1,6 +1,7 @@
 import { keyframes } from '@angular/animations';
 import { Injectable } from '@angular/core';
-import gsap from 'gsap';
+import gsap, { Elastic } from 'gsap';
+import {Bounce} from 'gsap';
 import { BehaviorSubject, distinctUntilChanged, filter, skip } from 'rxjs';
 import { Keyframe, PropertyTimeline, ElementTimeline, Timeline, AnimatableElement, Tween } from '../model/Timeline';
 
@@ -14,7 +15,7 @@ export class TimelineService {
 
     elements: BehaviorSubject<AnimatableElement[]> = new BehaviorSubject<AnimatableElement[]>([]);
     newElements: BehaviorSubject<AnimatableElement> = new BehaviorSubject<AnimatableElement>(null);
-
+    selectedKeyframe: BehaviorSubject<Keyframe> = new BehaviorSubject<Keyframe>(null);
     public pixelsPerMillisecond = 0.1;
 
     public timeline: Timeline;
@@ -33,7 +34,11 @@ export class TimelineService {
         });
 
         this.timeline.position.pipe(skip(1)).subscribe((time) => {
-            this.gsapTimeline.seek(time / 1000);
+            if (!this.gsapTimeline.isActive()) {
+                console.log('time changed ', time);
+                this.gsapTimeline.seek(time / 1000);
+            }
+            // this.gsapTimeline.pause();
         });
 
 
@@ -71,6 +76,8 @@ export class TimelineService {
                 const newKeyframe = {
                     time,
                     value: val,
+                    easing: 'Default',
+                    easingOption: ''
                 };
                 propertyTimeline.keyframes.next([...currentKeyframes, newKeyframe]);
                 this.updateTimeline();
@@ -81,6 +88,9 @@ export class TimelineService {
         animateble.x.pipe(skip(1), distinctUntilChanged()).subscribe(handlePropertyChange('x'));
         animateble.opacity.pipe(skip(1), distinctUntilChanged()).subscribe(handlePropertyChange('opacity'));
         animateble.rotation.pipe(skip(1), distinctUntilChanged()).subscribe(handlePropertyChange('rotation'));
+        animateble.borderRadius.pipe(skip(1), distinctUntilChanged()).subscribe(handlePropertyChange('borderRadius'));
+        animateble.backgroundColor.pipe(skip(1), distinctUntilChanged()).subscribe(handlePropertyChange('backgroundColor'));
+
 
         elementTimeline.target = animateble;
         this.timeline.elementTimelines.next([...this.timeline.elementTimelines.getValue(), elementTimeline]);
@@ -115,12 +125,22 @@ export class TimelineService {
                                 startTime: fromKeyframe.time,
                                 endTime: toKeyframe.time,
                                 property: property.property.getValue(),
+                                keyframe: fromKeyframe
                             };
 
-                            const fromVars = {};
+                            const fromVars: any = {};
                             fromVars[property.property.getValue()] = fromKeyframe.value;
 
-                            const toVars = { duration: (toKeyframe.time - fromKeyframe.time) / 1000 };
+
+
+                            const toVars: any = { duration: (toKeyframe.time - fromKeyframe.time) / 1000 };
+                            if (fromKeyframe.easing === 'Default') {
+                                toVars.ease = 'linear';
+                            } else {
+                                toVars.ease = fromKeyframe.easing +'.'+fromKeyframe.easingOption;
+                            }
+                            
+                            
                             toVars[property.property.getValue()] = toKeyframe.value;
                             this.gsapTimeline.fromTo(ref, fromVars, toVars, fromKeyframe.time / 1000);
                             tweens.push(tween);

@@ -39,6 +39,15 @@ export class AnimatableElementComponent implements OnInit, AfterViewInit {
             this.el.nativeElement.style.opacity = opacity;
         });
 
+        a.borderRadius.subscribe((value)=>{
+            this.el.nativeElement.style.borderRadius = value+'px';
+        });
+
+
+        a.backgroundColor.subscribe((value)=>{
+            this.el.nativeElement.style.backgroundColor = value;
+        });
+
         this._animatebleElement.ref = this.el.nativeElement;
     }
 
@@ -68,7 +77,6 @@ export class AnimatableElementComponent implements OnInit, AfterViewInit {
         let startY = rect.top - containerRect.top;
 
         const keyframeElement = this.el.nativeElement as HTMLElement;
-        console.log(startX);
 
         const mouseUp$ = fromEvent(window, 'mouseup');
         let startMouseX = 0;
@@ -99,13 +107,8 @@ export class AnimatableElementComponent implements OnInit, AfterViewInit {
         mouseDown$
             .pipe(
                 tap((event: MouseEvent) => {
-                    console.log('down');
                     containerRect = this.parent.el.nativeElement.getBoundingClientRect();
                     rect = (this.el.nativeElement as HTMLElement).getBoundingClientRect();
-
-                    console.log(this.el.nativeElement);
-                    console.log(this.parent.el.nativeElement);
-
                     startX = rect.left - containerRect.left;
                     startY = rect.top - containerRect.top;
                     startMouseX = event.clientX;

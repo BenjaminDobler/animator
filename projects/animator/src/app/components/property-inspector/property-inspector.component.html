@@ -22,5 +22,41 @@ Property Inspector
     </div>
 
 
+    <div style="display: flex">
+        <div>Border Radius</div>
+        <input #borderRadiusInp step="1" min="0" max="360" type="number" [value]="animatable.borderRadius | async" (change)="updateValue(animatable.borderRadius, borderRadiusInp.value)" />
+    </div>
+
+
+    <div style="display: flex">
+        <div>Background color</div>
+
+        <input #bgColorInp [value]="animatable.backgroundColor | async" (keydown)="updateValue(animatable.backgroundColor, bgColorInp.value)" />
+    </div>
+
+
 </div>
+
+
+
+<div *ngIf="timelineService.selectedKeyframe|async;let keyframe">
+
+    {{keyframe.easing}}
+<select (change)="changeSelectedEasing($event)">
+    <option *ngFor="let easing of easings;let i=index" [selected]="easing.name === selectedEasing.name" [value]="i">{{easing.name}}</option>
+</select>
+
+<select *ngIf="selectedEasing && selectedEasing.options.length>0" (change)="changeSelectedEasingOption($event)">
+    <option *ngFor="let option of selectedEasing.options" [value]="option" [selected]="option === selectedEasing.selectedOption">{{option}}</option>
+</select>
+
+<ng-container *ngIf="selectedEasing">
+<ng-container *ngFor="let param of selectedEasing.parameters">
+
+    <input *ngIf="param.type === 'number'" type="number" [min]="param.min" [max]="param.max" [value]="param.value" >
+</ng-container>
+</ng-container>
+</div>
+
+
 <button (click)="newElement()">New Element</button>

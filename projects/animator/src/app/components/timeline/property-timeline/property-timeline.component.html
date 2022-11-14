@@ -6,7 +6,8 @@
 
 <div 
 class="tween" 
+(click)="selectTween(tween)"
 *ngFor="let tween of timeline.tweens | async" [style.transform]="'translateX('+(tween.startTime * pixelsPerMillisecond)+'px)'" [style.width]="((tween.endTime-tween.startTime)*pixelsPerMillisecond) +'px'" >
-
+  <div class="tween-inner"></div>
 </div>
 </div>
