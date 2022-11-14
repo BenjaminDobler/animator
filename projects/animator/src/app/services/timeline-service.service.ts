@@ -20,6 +20,8 @@ export class TimelineServiceService {
     public timeline: Timeline;
 
     constructor() {
+
+
         // const elementTimeline = new ElementTimeline();
         // elementTimeline.properties.next([new PropertyTimeline('x')]);
 
@@ -33,6 +35,8 @@ export class TimelineServiceService {
         this.timeline.position.pipe(skip(1)).subscribe((time) => {
             this.gsapTimeline.seek(time / 1000);
         });
+
+
     }
 
     setSelectedAnimatable(animatable: AnimatableElement) {
@@ -52,6 +56,9 @@ export class TimelineServiceService {
                 let propertyTimeline = properties.find((p) => p.property.getValue() === property);
                 if (!propertyTimeline) {
                     propertyTimeline = new PropertyTimeline(property);
+                    propertyTimeline.keyframes.subscribe(()=>{
+                      this.updateTimeline();
+                    });
                     elementTimeline.properties.next([...elementTimeline.properties.getValue(), propertyTimeline]);
                 }
                 const time = this.timeline.position.getValue();
@@ -80,7 +87,12 @@ export class TimelineServiceService {
     }
 
     updateTimeline() {
-        this.gsapTimeline = gsap.timeline({ duration: 10 });
+      this.gsapTimeline = gsap.timeline({ duration: 10 });
+      this.gsapTimeline.eventCallback('onUpdate', (data)=>{
+        const time = this.gsapTimeline.progress() * this.gsapTimeline.duration();
+        this.timeline.position.next(time * 1000);
+        
+      })
         this.gsapTimeline.pause();
         const elements = this.timeline.elementTimelines.getValue();
 

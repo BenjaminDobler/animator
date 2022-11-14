@@ -6,7 +6,7 @@
     <canvas height="16px"></canvas>
 </div>
 
-<div (mousedown)="dragStart($event)" class="scrubbar">
+<div #scrubbar (mousedown)="dragStart($event)" class="scrubbar">
     <div class="knob"></div>
     <div class="line"></div>
 </div>

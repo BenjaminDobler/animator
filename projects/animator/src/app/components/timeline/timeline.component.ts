@@ -1,5 +1,5 @@
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
-import { fromEvent, takeUntil } from 'rxjs';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { fromEvent, skip, takeUntil } from 'rxjs';
 import { ElementTimeline, Timeline } from '../../model/Timeline';
 
 @Component({
@@ -9,9 +9,18 @@ import { ElementTimeline, Timeline } from '../../model/Timeline';
 })
 export class TimelineComponent implements OnInit {
 
+  @ViewChild('scrubbar')
+  private scrubbarElement: ElementRef;
+
   @Input()
   set timeline(value: Timeline) {
+    
     this._timeline = value;
+
+    this._timeline.position.pipe(skip(0)).subscribe((position)=>{
+      const positionX = position * this.pixelsPerMillisecond;
+      this.scrubbarElement.nativeElement.style.transform = `translate(${positionX}px`;
+    });
   }
   
   get timeline() {

@@ -44,7 +44,7 @@ export class PropertyTimelineComponent implements OnInit {
     const containerRect = this.container.nativeElement.getBoundingClientRect();
     const rect = (event.target as HTMLElement).getBoundingClientRect();
     const startX = rect.left - containerRect.left;
-    const keyframeElement = event.target as HTMLElement;
+    const keyframeElement = event.currentTarget as HTMLElement;
     console.log(startX);
 
     const mouseUp$ = fromEvent(window, 'mouseup');
@@ -54,16 +54,10 @@ export class PropertyTimelineComponent implements OnInit {
       .pipe(takeUntil(mouseUp$))
       .subscribe(
         (event: MouseEvent) => {
-          console.log('move ', event.clientX - startMouse);
-          console.log('set to ', startX + event.clientX - startMouse);
-
           let position = startX + event.clientX - startMouse;
           position = Math.max(0, position);
           keyframeElement.style.transform = `translateX(${position}px)`;
-
           const time = position / this.pixelsPerMillisecond;
-          console.log(time);
-
           newTime = time;
           keyframe.time = newTime;
           const keyframes = this.timeline.keyframes.getValue();
