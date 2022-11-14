@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { TimelineServiceService } from '../../services/timeline-service.service';
+import { TimelineService } from '../../services/timeline.service';
 
 @Component({
   selector: 'property-inspector',
@@ -10,13 +10,17 @@ import { TimelineServiceService } from '../../services/timeline-service.service'
 export class PropertyInspectorComponent implements OnInit {
 
 
-  constructor(public timelineService: TimelineServiceService) { }
+  constructor(public timelineService: TimelineService) { }
 
   ngOnInit(): void {
   }
 
   updateValue(prop: BehaviorSubject<any>, value) {
     prop.next(value);
+  }
+
+  newElement() {
+    this.timelineService.addNewAnimatebleElement();
   }
 
 }

@@ -1,8 +1,8 @@
+<div style="background: #f3f3f3; height: 41px; border-top: 1px solid #d3d3d3; border-bottom: 1px solid #dbdbdb">
+    <button (click)="play()">Play</button>
 
-
-
-
-<div style="width: 800px;min-width:100vw;height: 16px;background: #dedede">
+</div>
+<div style="width: 800px; min-width: 100vw; height: 16px; background: #dedede">
     <canvas height="16px"></canvas>
 </div>
 
@@ -11,4 +11,4 @@
     <div class="line"></div>
 </div>
 
-<element-timeline *ngFor="let elementTimeline of timeline.elementTimelines |async" [timeline]="elementTimeline" [pixelsPerMillisecond]="pixelsPerMillisecond"></element-timeline>
+<element-timeline *ngFor="let elementTimeline of timeline.elementTimelines | async" [timeline]="elementTimeline" [pixelsPerMillisecond]="pixelsPerMillisecond"></element-timeline>

@@ -20,4 +20,7 @@ Property Inspector
         <div>Rotation</div>
         <input #rotInp step="1" min="0" max="360" type="number" [value]="animatable.rotation | async" (change)="updateValue(animatable.rotation, rotInp.value)" />
     </div>
+
+
 </div>
+<button (click)="newElement()">New Element</button>

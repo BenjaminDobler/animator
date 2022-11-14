@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { fromEvent, takeUntil } from 'rxjs';
 import { Keyframe, PropertyTimeline } from '../../../model/Timeline';
-import { TimelineServiceService } from '../../../services/timeline-service.service';
+import { TimelineService } from '../../../services/timeline.service';
 
 @Component({
   selector: 'property-timeline',
@@ -34,7 +34,7 @@ export class PropertyTimelineComponent implements OnInit {
   @ViewChild('container')
   private container: ElementRef;
 
-  constructor(private timelineService: TimelineServiceService) {}
+  constructor(private timelineService: TimelineService) {}
 
   ngOnInit(): void {}
 

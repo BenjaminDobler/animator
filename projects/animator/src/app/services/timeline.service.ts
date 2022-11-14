@@ -7,7 +7,7 @@ import { Keyframe, PropertyTimeline, ElementTimeline, Timeline, AnimatableElemen
 @Injectable({
     providedIn: 'root',
 })
-export class TimelineServiceService {
+export class TimelineService {
     selectedAnimatable: BehaviorSubject<AnimatableElement> = new BehaviorSubject<AnimatableElement>(null);
 
     gsapTimeline;

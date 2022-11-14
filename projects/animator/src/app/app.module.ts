@@ -9,6 +9,7 @@ import { StageComponent } from './components/stage/stage.component';
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { AnimatableElementComponent } from './components/animatable-element/animatable-element.component';
 import { PropertyInspectorComponent } from './components/property-inspector/property-inspector.component';
+import { TimelineService } from './services/timeline.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { PropertyInspectorComponent } from './components/property-inspector/prop
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [TimelineService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

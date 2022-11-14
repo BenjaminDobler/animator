@@ -1,23 +1,24 @@
 
 :host {
     position: relative;
+    padding-bottom: 20px;
 }
 
 
 .scrubbar {
     position: absolute;
-    top: 0;
+    top: 41px;
     left: 100px;
     bottom: 0;
     width: 0px;
-    background: #00ff00;
+    background: #ff0000;
     user-select: none;
 }
 
 .knob {
     width: 10px;
     height: 10px;
-    background: #00ff00;
+    background: #ff0000;
     border-radius: 50%;
     position: absolute; left: -5px;
 }
@@ -25,6 +26,6 @@
 .line {
     width: 2px;
     height: 100%;
-    background: #00ff00;
+    background: #ff0000;
     position: absolute; left: -1px;
 }

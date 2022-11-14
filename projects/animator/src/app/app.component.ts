@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { PropertyTimeline } from './model/Timeline';
-import { TimelineServiceService } from './services/timeline-service.service';
+import { TimelineService } from './services/timeline.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,7 @@ import { TimelineServiceService } from './services/timeline-service.service';
 export class AppComponent {
   title = 'animator';
 
-  constructor(public timelineService: TimelineServiceService) {
+  constructor(public timelineService: TimelineService) {
 
   }
 
@@ -36,12 +36,8 @@ export class AppComponent {
   deleteProperty() {
   }
 
-  play() {
-    this.timelineService.gsapTimeline.play(0);
-  }
+ 
 
-  newElement() {
-    this.timelineService.addNewAnimatebleElement();
-  }
+  
   
 }

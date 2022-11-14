@@ -1,79 +1,77 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { fromEvent, skip, takeUntil } from 'rxjs';
 import { ElementTimeline, Timeline } from '../../model/Timeline';
+import { TimelineService } from '../../services/timeline.service';
 
 @Component({
-  selector: 'timeline',
-  templateUrl: './timeline.component.html',
-  styleUrls: ['./timeline.component.scss']
+    selector: 'timeline',
+    templateUrl: './timeline.component.html',
+    styleUrls: ['./timeline.component.scss'],
 })
 export class TimelineComponent implements OnInit {
+    @ViewChild('scrubbar')
+    private scrubbarElement: ElementRef;
 
-  @ViewChild('scrubbar')
-  private scrubbarElement: ElementRef;
+    @Input()
+    set timeline(value: Timeline) {
+        this._timeline = value;
 
-  @Input()
-  set timeline(value: Timeline) {
-    
-    this._timeline = value;
+        this._timeline.position.pipe(skip(0)).subscribe((position) => {
+            if (this.scrubbarElement) {
+                const positionX = position * this.pixelsPerMillisecond;
+                this.scrubbarElement.nativeElement.style.transform = `translate(${positionX}px`;
+            }
+        });
+    }
 
-    this._timeline.position.pipe(skip(0)).subscribe((position)=>{
-      const positionX = position * this.pixelsPerMillisecond;
-      this.scrubbarElement.nativeElement.style.transform = `translate(${positionX}px`;
-    });
-  }
-  
-  get timeline() {
-    return this._timeline;
-  }
-  private _timeline: Timeline;
+    get timeline() {
+        return this._timeline;
+    }
+    private _timeline: Timeline;
 
-  @Input()
-  public pixelsPerMillisecond = 0.1;
+    @Input()
+    public pixelsPerMillisecond = 0.1;
 
-  constructor(private el: ElementRef) { }
+    constructor(private el: ElementRef, private timelineService: TimelineService) {}
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {}
 
-  dragStart(event: MouseEvent) {
-    console.log('start drag ', this.el);
+    play() {
+        this.timelineService.gsapTimeline.play(0);
+    }
 
-    const containerRect = this.el.nativeElement.getBoundingClientRect();
-    const rect = (event.target as HTMLElement).getBoundingClientRect();
-    const startX = rect.left - containerRect.left - 100;
-    const startY = rect.top - containerRect.top;
+    dragStart(event: MouseEvent) {
+        console.log('start drag ', this.el);
 
-    const keyframeElement = event.currentTarget as HTMLElement;
-    console.log(startX);
+        const containerRect = this.el.nativeElement.getBoundingClientRect();
+        const rect = (event.target as HTMLElement).getBoundingClientRect();
+        const startX = rect.left - containerRect.left - 100;
+        const startY = rect.top - containerRect.top;
 
-    const mouseUp$ = fromEvent(window, 'mouseup');
-    const startMouseX = event.clientX;
-    const startMouseY = event.clientY;
+        const keyframeElement = event.currentTarget as HTMLElement;
+        console.log(startX);
 
-    let newTime = 0;
-    fromEvent(window, 'mousemove')
-      .pipe(takeUntil(mouseUp$))
-      .subscribe(
-        (event: MouseEvent) => {
+        const mouseUp$ = fromEvent(window, 'mouseup');
+        const startMouseX = event.clientX;
+        const startMouseY = event.clientY;
 
-          let positionX = startX + event.clientX - startMouseX;
-          // let positionY = startY + event.clientY - startMouseY;
+        let newTime = 0;
+        fromEvent(window, 'mousemove')
+            .pipe(takeUntil(mouseUp$))
+            .subscribe(
+                (event: MouseEvent) => {
+                    let positionX = startX + event.clientX - startMouseX;
+                    // let positionY = startY + event.clientY - startMouseY;
 
-          positionX = Math.max(0, positionX);
-          keyframeElement.style.transform = `translate(${positionX}px`;
+                    positionX = Math.max(0, positionX);
+                    keyframeElement.style.transform = `translate(${positionX}px`;
 
-          const scrubtime = positionX / this.pixelsPerMillisecond;
-          console.log(positionX, scrubtime);
-          this.timeline.position.next(scrubtime);
-
-
-        },
-        () => {},
-        () => {
-          
-        }
-      );
-  }
-
+                    const scrubtime = positionX / this.pixelsPerMillisecond;
+                    console.log(positionX, scrubtime);
+                    this.timeline.position.next(scrubtime);
+                },
+                () => {},
+                () => {}
+            );
+    }
 }

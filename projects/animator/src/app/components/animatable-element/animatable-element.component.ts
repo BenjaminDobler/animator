@@ -2,7 +2,7 @@ import { AfterViewInit, ElementRef, Host, HostListener } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { combineLatest, fromEvent, switchMap, takeUntil, tap } from 'rxjs';
 import { AnimatableElement, Timeline } from '../../model/Timeline';
-import { TimelineServiceService } from '../../services/timeline-service.service';
+import { TimelineService } from '../../services/timeline.service';
 import { StageComponent } from '../stage/stage.component';
 import { TimelineComponent } from '../timeline/timeline.component';
 
@@ -42,7 +42,7 @@ export class AnimatableElementComponent implements OnInit, AfterViewInit {
         this._animatebleElement.ref = this.el.nativeElement;
     }
 
-    constructor(@Host() private parent: StageComponent, private el: ElementRef, private timelineService: TimelineServiceService) {
+    constructor(@Host() private parent: StageComponent, private el: ElementRef, private timelineService: TimelineService) {
         console.log('Parent', this.parent);
     }
 
