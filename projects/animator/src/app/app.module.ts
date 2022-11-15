@@ -10,6 +10,7 @@ import { TimelineComponent } from './components/timeline/timeline.component';
 import { AnimatableElementComponent } from './components/animatable-element/animatable-element.component';
 import { PropertyInspectorComponent } from './components/property-inspector/property-inspector.component';
 import { TimelineService } from './services/timeline.service';
+import { AllDragComponent } from './components/timeline/element-timeline/all-drag/all-drag.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { TimelineService } from './services/timeline.service';
     TimelineComponent,
     AnimatableElementComponent,
     PropertyInspectorComponent,
+    AllDragComponent,
   ],
   imports: [
     BrowserModule,

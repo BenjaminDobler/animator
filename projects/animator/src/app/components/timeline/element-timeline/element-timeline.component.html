@@ -5,7 +5,7 @@
 Element
 </div>
 <div style="position: relative;">
-    <div *ngIf="timeline.all | async;let all" class="all" [style.transform]="'translateX('+(all.min * pixelsPerMillisecond)+'px)'" [style.width]="((all.max-all.min)*pixelsPerMillisecond) +'px'"></div>
+    <all-drag [pixelsPerMillisecond]="pixelsPerMillisecond" [minMax]="timeline.all | async" [timeline]="timeline"></all-drag>
 </div>
 </div>
 <property-timeline [pixelsPerMillisecond]="pixelsPerMillisecond" *ngFor="let property of timeline.properties | async" [timeline]="property"></property-timeline>
