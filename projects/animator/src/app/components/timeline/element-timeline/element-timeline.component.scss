@@ -1,0 +1,16 @@
+
+
+.label {
+    width: 100px;
+    overflow: hidden;
+    border-right: 1px solid #000;
+}
+
+.all {
+    position: absolute;
+    left: 0;
+    top: 4px;
+    bottom: 4px;
+    border-radius: 4px;
+    background: blue;
+}

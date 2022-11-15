@@ -1,6 +1,11 @@
 
 
-<div>
+<div style="display: flex;">
+<div class="label">
 Element
+</div>
+<div style="position: relative;">
+    <div *ngIf="timeline.all | async;let all" class="all" [style.transform]="'translateX('+(all.min * pixelsPerMillisecond)+'px)'" [style.width]="((all.max-all.min)*pixelsPerMillisecond) +'px'"></div>
+</div>
 </div>
 <property-timeline [pixelsPerMillisecond]="pixelsPerMillisecond" *ngFor="let property of timeline.properties | async" [timeline]="property"></property-timeline>

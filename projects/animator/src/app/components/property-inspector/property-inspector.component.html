@@ -1,36 +1,35 @@
 Property Inspector
 <div style="display: flex; flex-direction: column" *ngIf="timelineService.selectedAnimatable | async; let animatable">
     <div style="display: flex">
-        <div>x</div>
-        <input #xInp type="number" [value]="animatable.x | async" (change)="updateValue(animatable.x, xInp.value)" />
+        <div class="prop-label">x</div>
+        <input class="prop-input" #xInp type="number" [value]="animatable.x | async" (change)="updateValue(animatable.x, xInp.value)" />
     </div>
 
     <div style="display: flex">
-        <div>y</div>
+        <div class="prop-label">y</div>
         <input #yInp type="number" [value]="animatable.y | async" (change)="updateValue(animatable.y, yInp.value)"/>
     </div>
 
     <div style="display: flex">
-        <div>Opacity</div>
+        <div class="prop-label">Opacity</div>
         <input #opacityInp step="0.01" min="0" max="1" type="number" [value]="animatable.opacity | async" (change)="updateValue(animatable.opacity, opacityInp.value)" />
     </div>
 
 
     <div style="display: flex">
-        <div>Rotation</div>
+        <div class="prop-label">Rotation</div>
         <input #rotInp step="1" min="0" max="360" type="number" [value]="animatable.rotation | async" (change)="updateValue(animatable.rotation, rotInp.value)" />
     </div>
 
 
     <div style="display: flex">
-        <div>Border Radius</div>
+        <div class="prop-label">Radius</div>
         <input #borderRadiusInp step="1" min="0" max="360" type="number" [value]="animatable.borderRadius | async" (change)="updateValue(animatable.borderRadius, borderRadiusInp.value)" />
     </div>
 
 
     <div style="display: flex">
-        <div>Background color</div>
-
+        <div class="prop-label">BG color</div>
         <input #bgColorInp [value]="animatable.backgroundColor | async" (keydown)="updateValue(animatable.backgroundColor, bgColorInp.value)" />
     </div>
 
