@@ -90,6 +90,9 @@ export class TimelineService {
         animateble.rotation.pipe(skip(1), distinctUntilChanged()).subscribe(handlePropertyChange('rotation'));
         animateble.borderRadius.pipe(skip(1), distinctUntilChanged()).subscribe(handlePropertyChange('borderRadius'));
         animateble.backgroundColor.pipe(skip(1), distinctUntilChanged()).subscribe(handlePropertyChange('backgroundColor'));
+        animateble.width.pipe(skip(1), distinctUntilChanged()).subscribe(handlePropertyChange('width'));
+        animateble.height.pipe(skip(1), distinctUntilChanged()).subscribe(handlePropertyChange('height'));
+
 
 
         elementTimeline.target = animateble;

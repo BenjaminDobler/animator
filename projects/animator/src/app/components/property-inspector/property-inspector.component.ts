@@ -74,6 +74,47 @@ class Back implements Easing {
     styleUrls: ['./property-inspector.component.scss'],
 })
 export class PropertyInspectorComponent implements OnInit {
+
+
+  properties = [
+    {
+      label: 'Opacity',
+      property: 'opacity',
+      type: 'number'
+    },
+    {
+      label: 'x',
+      property: 'x',
+      type: 'number'
+    },
+    {
+      label: 'y',
+      property: 'y',
+      type: 'number'
+    },
+    {
+      label: 'width',
+      property: 'width',
+      type: 'number'
+    },
+    {
+      label: 'height',
+      property: 'height',
+      type: 'number'
+    },
+    {
+      label: 'radius',
+      property: 'borderRadius',
+      type: 'number'
+    },
+    {
+      label: 'Bg color',
+      property: 'backgroundColor',
+      type: 'color'
+    }
+
+  ]
+
     easings: Easing[] = [new Default(), new Bounce(), new Back()];
 
     selectedEasing: Easing = this.easings[0];

@@ -34,17 +34,19 @@ export class AnimatableElementComponent implements OnInit, AfterViewInit {
         this._animatebleElement = value;
         const a = this._animatebleElement;
 
-        combineLatest([a.x, a.y, a.opacity, a.rotation]).subscribe(([positionX, positionY, opacity, rotation]) => {
+        combineLatest([a.x, a.y, a.opacity, a.rotation, a.width, a.height]).subscribe(([positionX, positionY, opacity, rotation, width, height]) => {
             this.el.nativeElement.style.transform = `translate(${positionX}px,${positionY}px) rotate(${rotation}deg)`;
             this.el.nativeElement.style.opacity = opacity;
+            this.el.nativeElement.style.width = width + 'px';
+            this.el.nativeElement.style.height = height + 'px';
+
         });
 
-        a.borderRadius.subscribe((value)=>{
-            this.el.nativeElement.style.borderRadius = value+'px';
+        a.borderRadius.subscribe((value) => {
+            this.el.nativeElement.style.borderRadius = value + 'px';
         });
 
-
-        a.backgroundColor.subscribe((value)=>{
+        a.backgroundColor.subscribe((value) => {
             this.el.nativeElement.style.backgroundColor = value;
         });
 

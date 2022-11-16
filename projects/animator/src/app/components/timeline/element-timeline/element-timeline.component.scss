@@ -1,8 +1,10 @@
-
-
 .label {
     width: 100px;
     overflow: hidden;
+    background: #575757;
+    color: #fff;
     border-right: 1px solid #000;
+    padding-left: 10px;
+    box-sizing: border-box;
+    user-select: none;
 }
-

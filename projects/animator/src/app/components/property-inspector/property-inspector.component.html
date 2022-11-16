@@ -1,61 +1,23 @@
 Property Inspector
 <div style="display: flex; flex-direction: column" *ngIf="timelineService.selectedAnimatable | async; let animatable">
-    <div style="display: flex">
-        <div class="prop-label">x</div>
-        <input class="prop-input" #xInp type="number" [value]="animatable.x | async" (change)="updateValue(animatable.x, xInp.value)" />
-    </div>
-
-    <div style="display: flex">
-        <div class="prop-label">y</div>
-        <input #yInp type="number" [value]="animatable.y | async" (change)="updateValue(animatable.y, yInp.value)"/>
-    </div>
-
-    <div style="display: flex">
-        <div class="prop-label">Opacity</div>
-        <input #opacityInp step="0.01" min="0" max="1" type="number" [value]="animatable.opacity | async" (change)="updateValue(animatable.opacity, opacityInp.value)" />
-    </div>
-
-
-    <div style="display: flex">
-        <div class="prop-label">Rotation</div>
-        <input #rotInp step="1" min="0" max="360" type="number" [value]="animatable.rotation | async" (change)="updateValue(animatable.rotation, rotInp.value)" />
-    </div>
-
-
-    <div style="display: flex">
-        <div class="prop-label">Radius</div>
-        <input #borderRadiusInp step="1" min="0" max="360" type="number" [value]="animatable.borderRadius | async" (change)="updateValue(animatable.borderRadius, borderRadiusInp.value)" />
-    </div>
-
-
-    <div style="display: flex">
-        <div class="prop-label">BG color</div>
-        <input #bgColorInp [value]="animatable.backgroundColor | async" (keydown)="updateValue(animatable.backgroundColor, bgColorInp.value)" />
-    </div>
-
-
+    <control *ngFor="let property of properties" [type]="property.type" [label]="property.label" [property]="animatable[property.property]"></control>
 </div>
 
+<div *ngIf="timelineService.selectedKeyframe | async; let keyframe">
+    {{ keyframe.easing }}
+    <select (change)="changeSelectedEasing($event)">
+        <option *ngFor="let easing of easings; let i = index" [selected]="easing.name === selectedEasing.name" [value]="i">{{ easing.name }}</option>
+    </select>
 
+    <select *ngIf="selectedEasing && selectedEasing.options.length > 0" (change)="changeSelectedEasingOption($event)">
+        <option *ngFor="let option of selectedEasing.options" [value]="option" [selected]="option === selectedEasing.selectedOption">{{ option }}</option>
+    </select>
 
-<div *ngIf="timelineService.selectedKeyframe|async;let keyframe">
-
-    {{keyframe.easing}}
-<select (change)="changeSelectedEasing($event)">
-    <option *ngFor="let easing of easings;let i=index" [selected]="easing.name === selectedEasing.name" [value]="i">{{easing.name}}</option>
-</select>
-
-<select *ngIf="selectedEasing && selectedEasing.options.length>0" (change)="changeSelectedEasingOption($event)">
-    <option *ngFor="let option of selectedEasing.options" [value]="option" [selected]="option === selectedEasing.selectedOption">{{option}}</option>
-</select>
-
-<ng-container *ngIf="selectedEasing">
-<ng-container *ngFor="let param of selectedEasing.parameters">
-
-    <input *ngIf="param.type === 'number'" type="number" [min]="param.min" [max]="param.max" [value]="param.value" >
-</ng-container>
-</ng-container>
+    <ng-container *ngIf="selectedEasing">
+        <ng-container *ngFor="let param of selectedEasing.parameters">
+            <input *ngIf="param.type === 'number'" type="number" [min]="param.min" [max]="param.max" [value]="param.value" />
+        </ng-container>
+    </ng-container>
 </div>
-
 
 <button (click)="newElement()">New Element</button>

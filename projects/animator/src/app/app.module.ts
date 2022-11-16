@@ -12,6 +12,7 @@ import { PropertyInspectorComponent } from './components/property-inspector/prop
 import { TimelineService } from './services/timeline.service';
 import { AllDragComponent } from './components/timeline/element-timeline/all-drag/all-drag.component';
 import { ScrubBarComponent } from './components/timeline/scrub-bar/scrub-bar.component';
+import { ControlComponent } from './components/property-inspector/control/control.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { ScrubBarComponent } from './components/timeline/scrub-bar/scrub-bar.com
     PropertyInspectorComponent,
     AllDragComponent,
     ScrubBarComponent,
+    ControlComponent,
   ],
   imports: [
     BrowserModule,

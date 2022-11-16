@@ -1,13 +1,10 @@
-:host {
-    display: block;
-    width: 100%;
-    height: 100%;
-    background: #dedede;
-}
 
-.control {
+
+:host {
+    display: flex;
     margin-bottom: 5px;
 }
+
 .prop-label {
     width: 80px;
     text-align: right;

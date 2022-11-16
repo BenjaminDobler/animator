@@ -11,7 +11,12 @@
 .property-label {
     width: 100px;
     overflow: hidden;
+    background: #575757;
+    color: #fff;
     border-right: 1px solid #000;
+    padding-left: 10px;
+    box-sizing: border-box;
+    user-select: none;
 }
 
 .keyframe {
@@ -21,6 +26,7 @@
     width: 1px;
     height: 10px;
     overflow: visible;
+    user-select: none;
 
     .diamond {
         width: 10px;
@@ -30,6 +36,7 @@
         position: absolute;
         top: 5px;
         left: -5px;
+        user-select: none;
     }
 }
 

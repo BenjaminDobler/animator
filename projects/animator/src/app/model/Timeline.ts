@@ -70,6 +70,10 @@ export interface Keyframe {
 export class AnimatableElement {
     x: BehaviorSubject<number> = new BehaviorSubject<number>(0);
     y: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+    width: BehaviorSubject<number> = new BehaviorSubject<number>(200);
+    height: BehaviorSubject<number> = new BehaviorSubject<number>(200);
+
+
     opacity: BehaviorSubject<number> = new BehaviorSubject<number>(1);
     borderRadius: BehaviorSubject<number> = new BehaviorSubject<number>(0);
     backgroundColor: BehaviorSubject<number | string> = new BehaviorSubject<number | string>('#00ff00');
