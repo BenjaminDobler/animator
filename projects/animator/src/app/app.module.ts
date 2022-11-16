@@ -11,6 +11,7 @@ import { AnimatableElementComponent } from './components/animatable-element/anim
 import { PropertyInspectorComponent } from './components/property-inspector/property-inspector.component';
 import { TimelineService } from './services/timeline.service';
 import { AllDragComponent } from './components/timeline/element-timeline/all-drag/all-drag.component';
+import { ScrubBarComponent } from './components/timeline/scrub-bar/scrub-bar.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { AllDragComponent } from './components/timeline/element-timeline/all-dra
     AnimatableElementComponent,
     PropertyInspectorComponent,
     AllDragComponent,
+    ScrubBarComponent,
   ],
   imports: [
     BrowserModule,

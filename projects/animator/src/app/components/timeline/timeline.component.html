@@ -2,9 +2,11 @@
     <button (click)="play()">Play</button>
 
 </div>
-<div style="width: 800px; min-width: 100vw; height: 16px; background: #dedede">
+<!-- <div style="width: 800px; min-width: 100vw; height: 16px; background: #dedede">
     <canvas height="16px"></canvas>
-</div>
+</div> -->
+
+<scrub-bar [pixelsPerMillisecond]="pixelsPerMillisecond" style="width: 800px; min-width: 100vw; height: 16px; background: #333333"></scrub-bar>
 
 <div #scrubbar (mousedown)="dragStart($event)" class="scrubbar">
     <div class="knob"></div>
