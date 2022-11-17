@@ -80,32 +80,50 @@ export class PropertyInspectorComponent implements OnInit {
     {
       label: 'Opacity',
       property: 'opacity',
-      type: 'number'
+      type: 'number',
+      step: 0.01,
+      min: 0,
+      max: 1
     },
     {
       label: 'x',
       property: 'x',
-      type: 'number'
+      type: 'number',
+      step: 1,
+      min: Number.NEGATIVE_INFINITY,
+      max: Number.POSITIVE_INFINITY
     },
     {
       label: 'y',
       property: 'y',
-      type: 'number'
+      type: 'number',
+      step: 1,
+      min: Number.NEGATIVE_INFINITY,
+      max: Number.POSITIVE_INFINITY
     },
     {
       label: 'width',
       property: 'width',
-      type: 'number'
+      type: 'number',
+      step: 1,
+      min: Number.NEGATIVE_INFINITY,
+      max: Number.POSITIVE_INFINITY
     },
     {
       label: 'height',
       property: 'height',
-      type: 'number'
+      type: 'number',
+      step: 1,
+      min: Number.NEGATIVE_INFINITY,
+      max: Number.POSITIVE_INFINITY
     },
     {
       label: 'radius',
       property: 'borderRadius',
-      type: 'number'
+      type: 'number',
+      step: 1,
+      min: Number.NEGATIVE_INFINITY,
+      max: Number.POSITIVE_INFINITY
     },
     {
       label: 'Bg color',
