@@ -1,0 +1,22 @@
+<svg style="position: absolute; top: 0; left: 0" style="background: #dedede" width="800" height="800" xmlns="http://www.w3.org/2000/svg">
+    <path [attr.d]="path" stroke="black" fill="transparent" />
+</svg>
+
+<svg style="position: absolute; top: 0; left: 0" width="800" height="800" xmlns="http://www.w3.org/2000/svg">
+    <path [attr.d]="controlLines" opacity="0.5" stroke="blue" fill="transparent" />
+</svg>
+
+<div>
+    <div (mousedown)="onPart(part, $event)" *ngFor="let part of parts" [style.left]="part.x + 'px'" [style.top]="part.y + 'px'" class="dot">
+        <div class="dot-inner"></div>
+    </div>
+
+    <ng-container *ngFor="let part of parts">
+        <div (mousedown)="onHandle1(part, $event)" class="dot" *ngIf="part.handle" [style.left]="part.handle.x + 'px'" [style.top]="part.handle.y + 'px'">
+            <div class="dot-inner-handle"></div>
+        </div>
+        <div (mousedown)="onHandle2(part, $event)" class="dot" *ngIf="part.handle2" [style.left]="part.handle2.x + 'px'" [style.top]="part.handle2.y + 'px'">
+            <div class="dot-inner-handle"></div>
+        </div>
+    </ng-container>
+</div>

@@ -1,0 +1,36 @@
+:host {
+    position: relative;
+}
+
+svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.dot {
+    position: absolute;
+    user-select: none;
+}
+
+.dot-inner {
+    position: absolute;
+    left: -4px;
+    top: -4px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: blue;
+    user-select: none;
+}
+
+.dot-inner-handle {
+    position: absolute;
+    left: -4px;
+    top: -4px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgb(255, 0, 0);
+    user-select: none;
+}
