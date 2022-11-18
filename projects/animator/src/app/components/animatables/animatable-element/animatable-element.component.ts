@@ -1,10 +1,10 @@
 import { AfterViewInit, ElementRef, Host, HostListener } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { combineLatest, fromEvent, switchMap, takeUntil, tap } from 'rxjs';
-import { AnimatableElement, Timeline } from '../../model/Timeline';
-import { TimelineService } from '../../services/timeline.service';
-import { StageComponent } from '../stage/stage.component';
-import { TimelineComponent } from '../timeline/timeline.component';
+import { AnimatableElement, AnimatableHTMLElement, Timeline } from '../../../model/Timeline';
+import { TimelineService } from '../../../services/timeline.service';
+import { StageComponent } from '../../stage/stage.component';
+import { TimelineComponent } from '../../timeline/timeline.component';
 
 @Component({
     selector: 'animatable-element',
@@ -32,7 +32,7 @@ export class AnimatableElementComponent implements OnInit, AfterViewInit {
     @Input()
     public set animatebleElement(value: AnimatableElement) {
         this._animatebleElement = value;
-        const a = this._animatebleElement;
+        const a = this._animatebleElement as AnimatableHTMLElement;
 
         combineLatest([a.x, a.y, a.opacity, a.rotation, a.width, a.height]).subscribe(([positionX, positionY, opacity, rotation, width, height]) => {
             this.el.nativeElement.style.transform = `translate(${positionX}px,${positionY}px) rotate(${rotation}deg)`;
@@ -100,8 +100,9 @@ export class AnimatableElementComponent implements OnInit, AfterViewInit {
                 },
                 () => {},
                 () => {
-                    this.animatebleElement.x.next(positionX);
-                    this.animatebleElement.y.next(positionY);
+                    const a = this.animatebleElement as AnimatableHTMLElement;
+                    a.x.next(positionX);
+                    a.y.next(positionY);
                 }
             )
         );

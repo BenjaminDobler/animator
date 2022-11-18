@@ -1,4 +1,5 @@
 import { BehaviorSubject, combineLatest, switchMap } from 'rxjs';
+import { AnimatableElementComponent } from '../components/animatables/animatable-element/animatable-element.component';
 
 export class Timeline {
     elementTimelines: BehaviorSubject<ElementTimeline[]> = new BehaviorSubject<any>([]);
@@ -37,17 +38,16 @@ export class ElementTimeline {
                 this.all.next({ min, max });
             });
 
-            this.moveKeyframesBy.subscribe((value)=>{
-                const properties = this.properties.getValue();
-                properties.forEach((p)=>{
-                    const keyframes = p.keyframes.getValue();
-                    keyframes.forEach((k)=>{
-                        k.time = k.time + value;
-                    });
-                    p.keyframes.next(keyframes);
+        this.moveKeyframesBy.subscribe((value) => {
+            const properties = this.properties.getValue();
+            properties.forEach((p) => {
+                const keyframes = p.keyframes.getValue();
+                keyframes.forEach((k) => {
+                    k.time = k.time + value;
                 });
-                
-            })
+                p.keyframes.next(keyframes);
+            });
+        });
     }
 }
 
@@ -67,18 +67,106 @@ export interface Keyframe {
     easingOption: string;
 }
 
-export class AnimatableElement {
+export interface AnimatableProperty {
+    label: string;
+    property: string;
+    type: 'number' | 'color';
+    step?: number;
+    min?: number;
+    max?: number; 
+}
+
+export interface AnimatableElement {
+    properties: AnimatableProperty[];
+    ref: any;
+    componentClass:any;
+}
+
+
+export class AnimatableDummyElement implements AnimatableElement {
+    properties: AnimatableProperty[] = [
+        {
+            label: 'Value',
+            property: 'value',
+            type: 'number',
+            step: 1,
+            min: 0,
+            max: 200,
+        }
+    ];
+    value: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+    ref: any;
+    componentClass: AnimatableDummyElement;
+}
+
+export class AnimatableHTMLElement implements AnimatableElement {
+    properties: AnimatableProperty[] = [
+        {
+            label: 'Opacity',
+            property: 'opacity',
+            type: 'number',
+            step: 0.01,
+            min: 0,
+            max: 1,
+        },
+        {
+            label: 'x',
+            property: 'x',
+            type: 'number',
+            step: 1,
+            min: Number.NEGATIVE_INFINITY,
+            max: Number.POSITIVE_INFINITY,
+        },
+        {
+            label: 'y',
+            property: 'y',
+            type: 'number',
+            step: 1,
+            min: Number.NEGATIVE_INFINITY,
+            max: Number.POSITIVE_INFINITY,
+        },
+        {
+            label: 'width',
+            property: 'width',
+            type: 'number',
+            step: 1,
+            min: Number.NEGATIVE_INFINITY,
+            max: Number.POSITIVE_INFINITY,
+        },
+        {
+            label: 'height',
+            property: 'height',
+            type: 'number',
+            step: 1,
+            min: Number.NEGATIVE_INFINITY,
+            max: Number.POSITIVE_INFINITY,
+        },
+        {
+            label: 'radius',
+            property: 'borderRadius',
+            type: 'number',
+            step: 1,
+            min: Number.NEGATIVE_INFINITY,
+            max: Number.POSITIVE_INFINITY,
+        },
+        {
+            label: 'Bg color',
+            property: 'backgroundColor',
+            type: 'color',
+        },
+    ];
+
     x: BehaviorSubject<number> = new BehaviorSubject<number>(0);
     y: BehaviorSubject<number> = new BehaviorSubject<number>(0);
     width: BehaviorSubject<number> = new BehaviorSubject<number>(200);
     height: BehaviorSubject<number> = new BehaviorSubject<number>(200);
-
 
     opacity: BehaviorSubject<number> = new BehaviorSubject<number>(1);
     borderRadius: BehaviorSubject<number> = new BehaviorSubject<number>(0);
     backgroundColor: BehaviorSubject<number | string> = new BehaviorSubject<number | string>('#00ff00');
 
     rotation: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+    componentClass: AnimatableElementComponent
     ref: HTMLElement;
 }
 

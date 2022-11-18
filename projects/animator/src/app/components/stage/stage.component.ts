@@ -16,6 +16,11 @@ export class StageComponent implements OnInit {
   constructor(public el: ElementRef) { }
 
   ngOnInit(): void {
+
+  }
+
+  ngOnViewInit() {
+    
   }
 
 

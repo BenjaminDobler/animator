@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import gsap, { Elastic } from 'gsap';
 import {Bounce} from 'gsap';
 import { BehaviorSubject, distinctUntilChanged, filter, skip } from 'rxjs';
-import { Keyframe, PropertyTimeline, ElementTimeline, Timeline, AnimatableElement, Tween } from '../model/Timeline';
+import { Keyframe, PropertyTimeline, ElementTimeline, Timeline, AnimatableElement, Tween, AnimatableHTMLElement } from '../model/Timeline';
 
 @Injectable({
     providedIn: 'root',
@@ -48,8 +48,8 @@ export class TimelineService {
         this.selectedAnimatable.next(animatable);
     }
 
-    addNewAnimatebleElement() {
-        const animateble = new AnimatableElement();
+    addNewAnimatebleElement(typeClass) {
+        const animateble = new typeClass();
         this.newElements.next(animateble);
         this.elements.next([...this.elements.getValue(), animateble]);
 
@@ -84,14 +84,18 @@ export class TimelineService {
             };
         };
 
-        animateble.y.pipe(skip(1), distinctUntilChanged()).subscribe(handlePropertyChange('y'));
-        animateble.x.pipe(skip(1), distinctUntilChanged()).subscribe(handlePropertyChange('x'));
-        animateble.opacity.pipe(skip(1), distinctUntilChanged()).subscribe(handlePropertyChange('opacity'));
-        animateble.rotation.pipe(skip(1), distinctUntilChanged()).subscribe(handlePropertyChange('rotation'));
-        animateble.borderRadius.pipe(skip(1), distinctUntilChanged()).subscribe(handlePropertyChange('borderRadius'));
-        animateble.backgroundColor.pipe(skip(1), distinctUntilChanged()).subscribe(handlePropertyChange('backgroundColor'));
-        animateble.width.pipe(skip(1), distinctUntilChanged()).subscribe(handlePropertyChange('width'));
-        animateble.height.pipe(skip(1), distinctUntilChanged()).subscribe(handlePropertyChange('height'));
+        animateble.properties.forEach((property)=>{
+            animateble[property.property].pipe(skip(1), distinctUntilChanged()).subscribe(handlePropertyChange(property.property));
+        });
+
+        // animateble.y.pipe(skip(1), distinctUntilChanged()).subscribe(handlePropertyChange('y'));
+        // animateble.x.pipe(skip(1), distinctUntilChanged()).subscribe(handlePropertyChange('x'));
+        // animateble.opacity.pipe(skip(1), distinctUntilChanged()).subscribe(handlePropertyChange('opacity'));
+        // animateble.rotation.pipe(skip(1), distinctUntilChanged()).subscribe(handlePropertyChange('rotation'));
+        // animateble.borderRadius.pipe(skip(1), distinctUntilChanged()).subscribe(handlePropertyChange('borderRadius'));
+        // animateble.backgroundColor.pipe(skip(1), distinctUntilChanged()).subscribe(handlePropertyChange('backgroundColor'));
+        // animateble.width.pipe(skip(1), distinctUntilChanged()).subscribe(handlePropertyChange('width'));
+        // animateble.height.pipe(skip(1), distinctUntilChanged()).subscribe(handlePropertyChange('height'));
 
 
 

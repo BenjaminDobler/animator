@@ -8,7 +8,7 @@ import { fromEvent, takeUntil } from 'rxjs';
 })
 export class PathEditorComponent implements OnInit {
     parts = [];
-    path = 'M 10 10 C 20 20, 40 20, 50 10';
+    path = '';
     controlLines = '';
     lastPart;
 
@@ -129,5 +129,10 @@ export class PathEditorComponent implements OnInit {
                 part.handle2.y = part.y + -1 * diffY;
                 this.updatePath();
             });
+    }
+
+    onPath(mouseEvent: MouseEvent) {
+        console.log('on path');
+        // mouseEvent.stopPropagation();
     }
 }

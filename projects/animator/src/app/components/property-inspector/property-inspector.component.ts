@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { AnimatableDummyElement, AnimatableHTMLElement } from '../../model/Timeline';
 import { TimelineService } from '../../services/timeline.service';
 
 interface Easing {
@@ -166,6 +167,10 @@ export class PropertyInspectorComponent implements OnInit {
     }
 
     newElement() {
-        this.timelineService.addNewAnimatebleElement();
+        this.timelineService.addNewAnimatebleElement(AnimatableHTMLElement);
+    }
+
+    newDummyElement() {
+        this.timelineService.addNewAnimatebleElement(AnimatableDummyElement);
     }
 }
