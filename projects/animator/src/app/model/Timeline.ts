@@ -1,5 +1,6 @@
 import { BehaviorSubject, combineLatest, switchMap } from 'rxjs';
 import { AnimatableElementComponent } from '../components/animatables/animatable-element/animatable-element.component';
+import { DummyComponentComponent } from '../components/animatables/dummy-component/dummy-component.component';
 
 export class Timeline {
     elementTimelines: BehaviorSubject<ElementTimeline[]> = new BehaviorSubject<any>([]);
@@ -96,7 +97,7 @@ export class AnimatableDummyElement implements AnimatableElement {
     ];
     value: BehaviorSubject<number> = new BehaviorSubject<number>(0);
     ref: any;
-    componentClass: AnimatableDummyElement;
+    componentClass = DummyComponentComponent;
 }
 
 export class AnimatableHTMLElement implements AnimatableElement {
@@ -166,7 +167,7 @@ export class AnimatableHTMLElement implements AnimatableElement {
     backgroundColor: BehaviorSubject<number | string> = new BehaviorSubject<number | string>('#00ff00');
 
     rotation: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-    componentClass: AnimatableElementComponent
+    componentClass = AnimatableElementComponent;
     ref: HTMLElement;
 }
 

@@ -1,6 +1,6 @@
 Property Inspector
 <div style="display: flex; flex-direction: column" *ngIf="timelineService.selectedAnimatable | async; let animatable">
-    <control *ngFor="let property of properties" [type]="property.type" [label]="property.label" [property]="animatable[property.property]"></control>
+    <control *ngFor="let property of selectedAnimatable.properties" [type]="property.type" [label]="property.label" [property]="animatable[property.property]"></control>
 </div>
 
 <div *ngIf="timelineService.selectedKeyframe | async; let keyframe">

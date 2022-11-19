@@ -14,6 +14,7 @@ import { AllDragComponent } from './components/timeline/element-timeline/all-dra
 import { ScrubBarComponent } from './components/timeline/scrub-bar/scrub-bar.component';
 import { ControlComponent } from './components/property-inspector/control/control.component';
 import { DummyComponentComponent } from './components/animatables/dummy-component/dummy-component.component';
+import { ComponentHostDirective } from './components/helper/component-host.directive';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { DummyComponentComponent } from './components/animatables/dummy-componen
     ScrubBarComponent,
     ControlComponent,
     DummyComponentComponent,
+    ComponentHostDirective
   ],
   imports: [
     BrowserModule,

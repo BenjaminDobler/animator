@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { AnimatableDummyElement, AnimatableHTMLElement } from '../../model/Timeline';
+import { AnimatableDummyElement, AnimatableElement, AnimatableHTMLElement } from '../../model/Timeline';
 import { TimelineService } from '../../services/timeline.service';
 
 interface Easing {
@@ -133,6 +133,9 @@ export class PropertyInspectorComponent implements OnInit {
     }
 
   ]
+
+  @Input()
+  public selectedAnimatable: AnimatableElement;
 
     easings: Easing[] = [new Default(), new Bounce(), new Back()];
 

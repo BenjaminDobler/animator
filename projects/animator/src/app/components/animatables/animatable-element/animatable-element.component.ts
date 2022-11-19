@@ -1,6 +1,6 @@
-import { AfterViewInit, ElementRef, Host, HostListener } from '@angular/core';
+import { AfterViewInit, ElementRef, Host, HostListener, OnDestroy } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
-import { combineLatest, fromEvent, switchMap, takeUntil, tap } from 'rxjs';
+import { combineLatest, fromEvent, Subject, switchMap, take, takeUntil, tap } from 'rxjs';
 import { AnimatableElement, AnimatableHTMLElement, Timeline } from '../../../model/Timeline';
 import { TimelineService } from '../../../services/timeline.service';
 import { StageComponent } from '../../stage/stage.component';
@@ -11,7 +11,10 @@ import { TimelineComponent } from '../../timeline/timeline.component';
     templateUrl: './animatable-element.component.html',
     styleUrls: ['./animatable-element.component.scss'],
 })
-export class AnimatableElementComponent implements OnInit, AfterViewInit {
+export class AnimatableElementComponent implements OnInit, AfterViewInit, OnDestroy {
+
+
+    private destroy$: Subject<void> = new Subject<void>();
     @Input()
     set timeline(value: Timeline) {
         this._timeline = value;
@@ -34,7 +37,7 @@ export class AnimatableElementComponent implements OnInit, AfterViewInit {
         this._animatebleElement = value;
         const a = this._animatebleElement as AnimatableHTMLElement;
 
-        combineLatest([a.x, a.y, a.opacity, a.rotation, a.width, a.height]).subscribe(([positionX, positionY, opacity, rotation, width, height]) => {
+        combineLatest([a.x, a.y, a.opacity, a.rotation, a.width, a.height]).pipe(takeUntil(this.destroy$)).subscribe(([positionX, positionY, opacity, rotation, width, height]) => {
             this.el.nativeElement.style.transform = `translate(${positionX}px,${positionY}px) rotate(${rotation}deg)`;
             this.el.nativeElement.style.opacity = opacity;
             this.el.nativeElement.style.width = width + 'px';
@@ -42,19 +45,18 @@ export class AnimatableElementComponent implements OnInit, AfterViewInit {
 
         });
 
-        a.borderRadius.subscribe((value) => {
+        a.borderRadius.pipe(takeUntil(this.destroy$)).subscribe((value) => {
             this.el.nativeElement.style.borderRadius = value + 'px';
         });
 
-        a.backgroundColor.subscribe((value) => {
+        a.backgroundColor.pipe(takeUntil(this.destroy$)).subscribe((value) => {
             this.el.nativeElement.style.backgroundColor = value;
         });
 
         this._animatebleElement.ref = this.el.nativeElement;
     }
 
-    constructor(@Host() private parent: StageComponent, private el: ElementRef, private timelineService: TimelineService) {
-        console.log('Parent', this.parent);
+    constructor(private el: ElementRef, private timelineService: TimelineService) {
     }
 
     ngOnInit(): void {}
@@ -73,7 +75,7 @@ export class AnimatableElementComponent implements OnInit, AfterViewInit {
 
         const mouseDown$ = fromEvent(this.el.nativeElement, 'mousedown');
 
-        let containerRect = this.parent.el.nativeElement.getBoundingClientRect();
+        let containerRect = this.el.nativeElement.parentNode.getBoundingClientRect();
         let rect = (this.el.nativeElement as HTMLElement).getBoundingClientRect();
         let startX = rect.left - containerRect.left - 100;
         let startY = rect.top - containerRect.top;
@@ -110,7 +112,7 @@ export class AnimatableElementComponent implements OnInit, AfterViewInit {
         mouseDown$
             .pipe(
                 tap((event: MouseEvent) => {
-                    containerRect = this.parent.el.nativeElement.getBoundingClientRect();
+                    containerRect = this.el.nativeElement.parentNode.getBoundingClientRect();
                     rect = (this.el.nativeElement as HTMLElement).getBoundingClientRect();
                     startX = rect.left - containerRect.left;
                     startY = rect.top - containerRect.top;
@@ -124,5 +126,7 @@ export class AnimatableElementComponent implements OnInit, AfterViewInit {
 
     ngOnDestroy() {
         console.log('destroy');
+        this.destroy$.next();
+        this.destroy$.complete();
     }
 }
