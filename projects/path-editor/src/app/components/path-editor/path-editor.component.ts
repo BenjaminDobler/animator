@@ -87,12 +87,26 @@ export class PathEditorComponent implements OnInit {
     onPart(part, event: MouseEvent) {
         event.stopPropagation();
 
+        let last = {x: event.clientX, y: event.clientY};
         fromEvent(window, 'mousemove')
             .pipe(takeUntil(fromEvent(window, 'mouseup')))
             .subscribe((event: MouseEvent) => {
+                
                 part.x = event.clientX;
                 part.y = event.clientY;
+                if (part.handle) {
+                    part.handle.x += event.clientX - last.x;
+                    part.handle.y += event.clientY - last.y;
+                }
+
+                if (part.handle2) {
+                    part.handle2.x += event.clientX - last.x;
+                    part.handle2.y += event.clientY - last.y;
+
+                }
                 this.updatePath();
+                last = {x: event.clientX, y: event.clientY};
+
             });
     }
 

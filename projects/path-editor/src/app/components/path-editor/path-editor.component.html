@@ -1,10 +1,13 @@
 <svg style="position: absolute; top: 0; left: 0" style="background: #dedede" width="800" height="800" xmlns="http://www.w3.org/2000/svg">
     <path (mousedown)="onPath($event)" [attr.d]="path" stroke-width="5px" stroke="black" fill="#00ff00" />
+    
+    <!--edtitor path -->
+    <path [attr.d]="controlLines" opacity="0.5" stroke="blue" fill="transparent" />
+
 </svg>
 
-<svg  style="position: absolute; top: 0; left: 0;pointer-events: none" width="800" height="800" xmlns="http://www.w3.org/2000/svg">
-    <path [attr.d]="controlLines" opacity="0.5" stroke="blue" fill="transparent" />
-</svg>
+<!-- <svg style="position: absolute; top: 0; left: 0; pointer-events: none" width="800" height="800" xmlns="http://www.w3.org/2000/svg">
+</svg> -->
 
 <div>
     <div (mousedown)="onPart(part, $event)" *ngFor="let part of parts" [style.left]="part.x + 'px'" [style.top]="part.y + 'px'" class="dot">
