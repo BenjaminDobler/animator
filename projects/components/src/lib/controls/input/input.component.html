@@ -1,0 +1,10 @@
+<ng-container *ngIf="type != 'color'">
+    <input [value]="value" [type]="type" />
+    <span class="label">{{ label }}</span>
+</ng-container>
+
+<ng-container *ngIf="type === 'color'">
+    <input [value]="value" [type]="'color'" />
+    <input type="text" >
+</ng-container>
+

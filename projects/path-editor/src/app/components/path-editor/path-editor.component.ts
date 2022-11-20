@@ -54,6 +54,8 @@ export class PathEditorComponent implements OnInit {
                 this.lastPart.handle2.y = this.lastPart.y + -1 * diffY;
             }
             this.updatePath();
+        } else {
+            this.updatePath({ x: event.clientX, y: event.clientY });
         }
     }
 
@@ -63,7 +65,7 @@ export class PathEditorComponent implements OnInit {
         this.lastPart = null;
     }
 
-    updatePath() {
+    updatePath(endPart?) {
         let p = '';
         this.controlLines = '';
         this.parts.forEach((part, i) => {
@@ -81,17 +83,20 @@ export class PathEditorComponent implements OnInit {
             }
         });
 
+        if (endPart) {
+            p += `L ${endPart.x} ${endPart.y} `;
+        }
+
         this.path = p;
     }
 
     onPart(part, event: MouseEvent) {
         event.stopPropagation();
 
-        let last = {x: event.clientX, y: event.clientY};
+        let last = { x: event.clientX, y: event.clientY };
         fromEvent(window, 'mousemove')
             .pipe(takeUntil(fromEvent(window, 'mouseup')))
             .subscribe((event: MouseEvent) => {
-                
                 part.x = event.clientX;
                 part.y = event.clientY;
                 if (part.handle) {
@@ -102,11 +107,9 @@ export class PathEditorComponent implements OnInit {
                 if (part.handle2) {
                     part.handle2.x += event.clientX - last.x;
                     part.handle2.y += event.clientY - last.y;
-
                 }
                 this.updatePath();
-                last = {x: event.clientX, y: event.clientY};
-
+                last = { x: event.clientX, y: event.clientY };
             });
     }
 
