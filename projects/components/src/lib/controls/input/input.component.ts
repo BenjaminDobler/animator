@@ -28,4 +28,9 @@ export class InputComponent implements AfterViewInit {
             this.value = startVal - data.deltaY;
         });
     }
+
+    onColor(event) {
+        console.log(event.target.value);
+        this.value = event.target.value;
+    }
 }

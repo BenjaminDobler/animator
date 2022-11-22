@@ -13,6 +13,11 @@
     font-size: 14px;
     border-spacing: 0px 10px;
     display: inline-flex;
+    position: relative;
+
+    border-top-left-radius: 5px;
+    overflow: hidden;
+    border-bottom-left-radius: 5px;
 
     
 }
@@ -32,10 +37,16 @@ input {
 
     
 }
-
-
+.color-text-input {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
 input[type="color"] {
     width: 30px;
+    border-radius: 0;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    padding: 0;
 }
 input[type="color"]::-webkit-color-swatch-wrapper {
 	padding: 0;
@@ -55,4 +66,5 @@ input[type="color"]::-webkit-color-swatch {
     margin-left: -20px;
     text-align: right;
     position: absolute;
+    right: 10px;
 }

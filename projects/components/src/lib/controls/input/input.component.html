@@ -4,7 +4,7 @@
 </ng-container>
 
 <ng-container *ngIf="type === 'color'">
-    <input [value]="value" [type]="'color'" />
-    <input type="text" >
+    <input [value]="value" (input)="onColor($event)" [type]="'color'" />
+    <input class="color-text-input"  type="text" [value]="value"  >
 </ng-container>
 
