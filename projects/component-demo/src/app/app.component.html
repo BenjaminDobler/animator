@@ -1,8 +1,35 @@
+<div class="panel">
+    <table>
+        <tbody>
+            <tr>
+                <th class="name">Position</th>
+                <th class="value">
+                    <ra-input [label]="'X'" [value]="600" [type]="'number'"></ra-input>
+                    <ra-input [label]="'X'" [value]="600" [type]="'number'"></ra-input>
+                </th>
+            </tr>
 
-
-
-<div style="display: flex;gap: 5px">
-<ra-input [label]="'X'" [value]="600" [type]="'number'"></ra-input>
-
-<ra-input [label]="'X'" [value]="'#560067'" [type]="'color'"></ra-input>
+            <tr>
+                <th class="name">Size</th>
+                <th class="value">
+                    <ra-input [label]="'W'" [value]="600" [type]="'number'"></ra-input>
+                    <ra-input [label]="'H'" [value]="600" [type]="'number'"></ra-input>
+                </th>
+            </tr>
+            <tr>
+                <th class="name">BG Color</th>
+                <th class="value">
+                    <ra-input [label]="'X'" [value]="'#560067'" [type]="'color'"></ra-input>
+                    <ra-input style="max-width: 80px" [label]="'%'" [value]="100" [type]="'number'"></ra-input>
+                </th>
+            </tr>
+            <tr>
+                <th class="name">Border</th>
+                <th class="value">
+                    <ra-slider [min]="0" [max]="100" [value]="50"></ra-slider>
+                    <ra-input style="max-width: 80px" [label]="'%'" [value]="100" [type]="'number'"></ra-input>
+                </th>
+            </tr>
+        </tbody>
+    </table>
 </div>

@@ -7,3 +7,4 @@ export * from './lib/components.component';
 export * from './lib/components.module';
 
 export * from './lib/controls/input/input.component';
+export * from './lib/controls/slider/slider.component';

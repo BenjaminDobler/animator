@@ -28,12 +28,13 @@ input {
     color: var(--main-text-color);
     height: 35px;
     font-family: Inter !important;
-    width: 91px;
+    // width: 91px;
     box-sizing: border-box;
     text-indent: 11px;
     border-radius: 5px;
     font-weight: normal;
     font-size: 14px;
+    width: 100%;
 
     
 }
