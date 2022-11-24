@@ -37,7 +37,9 @@ export class AnimatableElementComponent implements OnInit, AfterViewInit, OnDest
         this._animatebleElement = value;
         const a = this._animatebleElement as AnimatableHTMLElement;
 
-        combineLatest([a.x, a.y, a.opacity, a.rotation, a.width, a.height]).pipe(takeUntil(this.destroy$)).subscribe(([positionX, positionY, opacity, rotation, width, height]) => {
+        combineLatest([a.x, a.y, a.opacity, a.rotation, a.width, a.height, a.rotation])
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(([positionX, positionY, opacity, rotation, width, height]) => {
             this.el.nativeElement.style.transform = `translate(${positionX}px,${positionY}px) rotate(${rotation}deg)`;
             this.el.nativeElement.style.opacity = opacity;
             this.el.nativeElement.style.width = width + 'px';

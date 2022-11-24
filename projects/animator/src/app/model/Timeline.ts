@@ -151,6 +151,14 @@ export class AnimatableHTMLElement implements AnimatableElement {
             max: Number.POSITIVE_INFINITY,
         },
         {
+            label: 'Rotation',
+            property: 'rotation',
+            type: 'number',
+            step: 1,
+            min: -360,
+            max: 360,
+        },
+        {
             label: 'Bg color',
             property: 'backgroundColor',
             type: 'color',
