@@ -1,7 +1,26 @@
 Property Inspector
-<div style="display: flex; flex-direction: column" *ngIf="timelineService.selectedAnimatable | async; let animatable">
-    <control *ngFor="let property of selectedAnimatable.properties" [type]="property.type" [label]="property.label" [property]="animatable[property.property]"></control>
+
+<div class="panel">
+    <table *ngIf="groups$ | async; let groups">
+        <tbody>
+            <tr *ngFor="let group of groups">
+                <th class="name">{{ group.label }}</th>
+                <th class="value">
+                    <ng-container *ngFor="let property of group.data">
+                        <ng-container *ngFor="let control of property.controls">
+                            <ra-input [type]="property.type" [style.flex]="property.flex" [label]="property.sub" *ngIf="control === 'number' || control === 'color'" [value]="selectedAnimatable[property.property]|async"></ra-input>
+                            <ra-slider raResize [style.flex]="property.flex" *ngIf="control === 'slider'" [min]="property.min" [max]="property.max" [value]="selectedAnimatable[property.property]|async"></ra-slider>
+                        </ng-container>
+                    </ng-container>
+                </th>
+            </tr>
+        </tbody>
+    </table>
 </div>
+
+<!-- <div style="display: flex; flex-direction: column" *ngIf="groups$ | async; let groups">
+    <control *ngFor="let property of selectedAnimatable.properties" [type]="property.type" [label]="property.label" [property]="animatable[property.property]"></control>
+</div> -->
 
 <div *ngIf="timelineService.selectedKeyframe | async; let keyframe">
     {{ keyframe.easing }}
@@ -22,4 +41,3 @@ Property Inspector
 
 <button (click)="newElement()">New Element</button>
 <button (click)="newDummyElement()">New Dummy</button>
-
