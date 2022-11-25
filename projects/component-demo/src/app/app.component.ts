@@ -74,7 +74,7 @@ export class AppComponent {
             sub: 'H'
         },
         {
-            label: 'radius',
+            label: 'Radius',
             property: 'borderRadius',
             type: 'number',
             controls: ['number'],

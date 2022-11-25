@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { AnimatableDummyElement, AnimatableElement, AnimatableHTMLElement } from '../../model/Timeline';
 import { TimelineService } from '../../services/timeline.service';
 
@@ -134,6 +134,8 @@ export class PropertyInspectorComponent implements OnInit {
 
   ]
 
+  groups$: Observable<any[]>;
+
   @Input()
   public selectedAnimatable: AnimatableElement;
 
@@ -150,6 +152,7 @@ export class PropertyInspectorComponent implements OnInit {
         });
     }
 
+
     changeSelectedEasingOption(e) {
         this.selectedEasing.selectedOption = e.target.value;
         this.timelineService.selectedKeyframe.getValue().easingOption = e.target.value;
@@ -163,7 +166,35 @@ export class PropertyInspectorComponent implements OnInit {
         this.timelineService.updateTimeline();
         
     }
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.groups$ = this.timelineService.selectedAnimatable.pipe(map((animatable)=>{
+            console.log(animatable);
+            if (!animatable) {
+                return [];
+            }
+            const groups = [];
+            const grouped = animatable.properties.reduce(function (r, a) {
+                if (a.group) {
+                    r[a.group] = r[a.group] || [];
+                    r[a.group].push(a);
+                } else {
+                    r[a.property] = r[a.property] || [];
+                    r[a.property].push(a);
+                }
+                return r;
+            }, {} as any);
+    
+            for (let i in grouped) {
+                console.log(i);
+                groups.push({
+                    label: grouped[i].length > 1 ? i : grouped[i][0].label,
+                    data: grouped[i],
+                });
+            }
+            console.log('groups ', groups);
+            return groups;
+        }))
+    }
 
     updateValue(prop: BehaviorSubject<any>, value) {
         prop.next(value);

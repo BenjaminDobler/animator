@@ -14,3 +14,43 @@
     margin-right: 5px;
     box-sizing: border-box;
 }
+
+
+.panel {
+    background-color: var(--panel-background);
+    display: inline-block;
+    padding: 10px;
+}
+
+table {
+    width: 270px;
+    border-spacing: 0px 10px;
+}
+
+th {
+    color: var(--main-text-color);
+    font-family: Inter;
+    font-weight: 500 !important;
+    font-size: 14px;
+    border-spacing: 0px 10px;
+}
+
+tr {
+    border-spacing: 0px 10px;
+
+}
+
+.name {
+    text-align: left;
+    color: var(--secondary-text-color);
+    font-family: Inter;
+    font-weight: 400 !important;
+    font-size: 14px;
+    white-space: nowrap;
+    padding-right: 10px;
+}
+
+.value {
+    display: flex;
+    gap: 10px;
+}

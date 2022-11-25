@@ -75,6 +75,11 @@ export interface AnimatableProperty {
     step?: number;
     min?: number;
     max?: number; 
+    controls: string[];
+    group?: string;
+    default?: any;
+    flex?: number;
+    sub?: string;
 }
 
 export interface AnimatableElement {
@@ -93,6 +98,7 @@ export class AnimatableDummyElement implements AnimatableElement {
             step: 1,
             min: 0,
             max: 200,
+            controls: ['number']
         }
     ];
     value: BehaviorSubject<number> = new BehaviorSubject<number>(0);
@@ -106,62 +112,109 @@ export class AnimatableHTMLElement implements AnimatableElement {
             label: 'Opacity',
             property: 'opacity',
             type: 'number',
-            step: 0.01,
+            controls: ['slider', 'number'],
+            step: 1,
             min: 0,
-            max: 1,
+            max: 100,
+            default: 100,
+            flex: 1,
+            sub: '%'
         },
         {
             label: 'x',
             property: 'x',
             type: 'number',
+            controls: ['number'],
             step: 1,
             min: Number.NEGATIVE_INFINITY,
             max: Number.POSITIVE_INFINITY,
+            default: 100,
+            group: 'Position',
+            flex: 1,
+            sub: 'X'
         },
         {
             label: 'y',
             property: 'y',
             type: 'number',
+            controls: ['number'],
             step: 1,
             min: Number.NEGATIVE_INFINITY,
             max: Number.POSITIVE_INFINITY,
+            default: 100,
+            group: 'Position',
+            flex: 1,
+            sub: 'Y'
         },
         {
             label: 'width',
             property: 'width',
             type: 'number',
+            controls: ['number'],
             step: 1,
             min: Number.NEGATIVE_INFINITY,
             max: Number.POSITIVE_INFINITY,
+            default: 100,
+            group: 'Size',
+            flex: 1,
+            sub: 'W'
         },
         {
             label: 'height',
             property: 'height',
             type: 'number',
+            controls: ['number'],
             step: 1,
             min: Number.NEGATIVE_INFINITY,
             max: Number.POSITIVE_INFINITY,
+            default: 100,
+            group: 'Size',
+            flex: 1,
+            sub: 'H'
         },
         {
-            label: 'radius',
+            label: 'Radius',
             property: 'borderRadius',
             type: 'number',
+            controls: ['number'],
             step: 1,
+            default: 0,
             min: Number.NEGATIVE_INFINITY,
             max: Number.POSITIVE_INFINITY,
+            flex: 0.4,
         },
         {
             label: 'Rotation',
             property: 'rotation',
             type: 'number',
+            controls: ['number'],
             step: 1,
             min: -360,
             max: 360,
+            default: 0,
+            flex: 0.4,
+            sub: '˚'
         },
         {
             label: 'Bg color',
             property: 'backgroundColor',
+            controls: ['color'],
             type: 'color',
+            group: 'BGColor',
+            default: '#00ff00',
+            flex: 1.6,
+        },
+        {
+            label: 'Bg Opacity',
+            property: 'bg-opacity',
+            controls: ['number'],
+            type: 'number',
+            min: 0,
+            max: 100,
+            group: 'BGColor',
+            default: 100,
+            flex: 1,
+            sub: '%'
         },
     ];
 
