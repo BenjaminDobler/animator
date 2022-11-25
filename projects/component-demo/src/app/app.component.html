@@ -1,6 +1,22 @@
 <div class="panel">
     <table>
         <tbody>
+            <tr *ngFor="let group of groups">
+                <th class="name">{{ group.label }}</th>
+                <th class="value">
+                    <ng-container *ngFor="let property of group.data">
+                        <ng-container *ngFor="let control of property.controls">
+                            <ra-input [type]="property.type" [style.flex]="property.flex" [label]="property.sub" *ngIf="control === 'number' || control === 'color'" [value]="property.default"></ra-input>
+                            <ra-slider raResize [style.flex]="property.flex" *ngIf="control === 'slider'" [min]="property.min" [max]="property.max" [value]="property.default"></ra-slider>
+                        </ng-container>
+                    </ng-container>
+                </th>
+            </tr>
+        </tbody>
+    </table>
+
+    <table>
+        <tbody>
             <tr>
                 <th class="name">Position</th>
                 <th class="value">
@@ -20,14 +36,14 @@
                 <th class="name">BG Color</th>
                 <th class="value">
                     <ra-input [label]="'X'" [value]="'#560067'" [type]="'color'"></ra-input>
-                    <ra-input style="max-width: 80px" [label]="'%'" [value]="100" [type]="'number'"></ra-input>
+                    <ra-input style="max-width: 70px" [label]="'%'" [value]="100" [type]="'number'"></ra-input>
                 </th>
             </tr>
             <tr>
                 <th class="name">Border</th>
                 <th class="value">
-                    <ra-slider [min]="0" [max]="100" [value]="50"></ra-slider>
-                    <ra-input style="max-width: 80px" [label]="'%'" [value]="100" [type]="'number'"></ra-input>
+                    <ra-slider #slider [min]="0" [max]="100" [value]="50"></ra-slider>
+                    <ra-input style="max-width: 70px" [label]="'%'" [value]="slider.value" [type]="'number'"></ra-input>
                 </th>
             </tr>
         </tbody>

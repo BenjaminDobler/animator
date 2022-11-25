@@ -1,5 +1,5 @@
-<div class="track">
-    <div #thumb class="thumb" [style.transform]="'translateX(' + thumbPosition + 'px)'">
+<div #track raResize (onResize)="trackResized($event)" class="track">
+    <div #thumb class="thumb" [style.transform]="'translateY(-50%) translateX(' + thumbPosition + 'px)'">
         <div class="thumb-inner"></div>
     </div>
 </div>

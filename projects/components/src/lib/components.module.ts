@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ComponentsComponent } from './components.component';
 import { InputComponent } from './controls/input/input.component';
 import { SliderComponent } from './controls/slider/slider.component';
+import { ResizeDirective } from './directives/resize.directive';
 
 
 
@@ -10,7 +11,8 @@ import { SliderComponent } from './controls/slider/slider.component';
   declarations: [
     ComponentsComponent,
     InputComponent,
-    SliderComponent
+    SliderComponent,
+    ResizeDirective
   ],
   imports: [
     CommonModule
@@ -18,7 +20,8 @@ import { SliderComponent } from './controls/slider/slider.component';
   exports: [
     ComponentsComponent,
     InputComponent,
-    SliderComponent
+    SliderComponent,
+    ResizeDirective
   ]
 })
 export class ComponentsModule { }

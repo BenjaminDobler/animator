@@ -15,6 +15,7 @@ import { ScrubBarComponent } from './components/timeline/scrub-bar/scrub-bar.com
 import { ControlComponent } from './components/property-inspector/control/control.component';
 import { DummyComponentComponent } from './components/animatables/dummy-component/dummy-component.component';
 import { ComponentHostDirective } from './components/helper/component-host.directive';
+import { ComponentsModule } from '@richapps/components';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ComponentHostDirective } from './components/helper/component-host.direc
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ComponentsModule
   ],
   providers: [TimelineService],
   bootstrap: [AppComponent]
