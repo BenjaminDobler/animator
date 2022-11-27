@@ -1,0 +1,13 @@
+
+/*
+https://github.com/ng-packagr/ng-packagr/issues/273
+https://stackoverflow.com/questions/66494915/how-to-add-scss-of-angular-library-to-bundle-using-ng-packagr
+*/
+
+body {
+    --accent-color: #166ef1;
+    --input-color: '#22233e';
+    --main-text-color: #ffffff;
+    --secondary-text-color: #a1a4d1;
+    --panel-background: #141629;
+}

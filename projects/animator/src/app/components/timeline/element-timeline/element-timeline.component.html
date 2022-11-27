@@ -1,11 +1,9 @@
-
-
-<div style="display: flex;">
-<div class="label">
-Element
+<div style="display: flex">
+    <div class="label" (click)="expanded = !expanded">Element</div>
+    <div style="position: relative">
+        <all-drag [pixelsPerMillisecond]="pixelsPerMillisecond" [minMax]="timeline.all | async" [timeline]="timeline"></all-drag>
+    </div>
 </div>
-<div style="position: relative;">
-    <all-drag [pixelsPerMillisecond]="pixelsPerMillisecond" [minMax]="timeline.all | async" [timeline]="timeline"></all-drag>
-</div>
-</div>
-<property-timeline [pixelsPerMillisecond]="pixelsPerMillisecond" *ngFor="let property of timeline.properties | async" [timeline]="property"></property-timeline>
+<ng-container *ngIf="expanded">
+    <property-timeline [pixelsPerMillisecond]="pixelsPerMillisecond" *ngFor="let property of timeline.properties | async" [timeline]="property"></property-timeline>
+</ng-container>

@@ -21,7 +21,6 @@ export class TimelineService {
     public timeline: Timeline;
 
     constructor() {
-
         this.timeline = new Timeline();
 
         this.newElements.pipe(filter((el) => el !== null)).subscribe(() => {
@@ -80,7 +79,11 @@ export class TimelineService {
         };
 
         animateble.properties.forEach((property) => {
-            animateble[property.property].pipe(skip(1), distinctUntilChanged()).subscribe(handlePropertyChange(property.property));
+            if (animateble[property.property]) {
+                animateble[property.property].pipe(skip(1), distinctUntilChanged()).subscribe(handlePropertyChange(property.property));
+            } else {
+                console.warn('Property does not exist on animatable element ', property.property);
+            }
         });
 
         elementTimeline.target = animateble;
@@ -138,6 +141,6 @@ export class TimelineService {
             });
         });
 
-        this.gsapTimeline.seek(this.timeline.position.getValue()/1000);
+        this.gsapTimeline.seek(this.timeline.position.getValue() / 1000);
     }
 }

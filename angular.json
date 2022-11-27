@@ -12,7 +12,7 @@
       },
       "root": "projects/animator",
       "sourceRoot": "projects/animator/src",
-      "prefix": "app",
+      "prefix": "",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -112,7 +112,7 @@
       },
       "root": "projects/path-editor",
       "sourceRoot": "projects/path-editor/src",
-      "prefix": "app",
+      "prefix": "",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -207,7 +207,7 @@
       "projectType": "library",
       "root": "projects/components",
       "sourceRoot": "projects/components/src",
-      "prefix": "lib",
+      "prefix": "ra",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",

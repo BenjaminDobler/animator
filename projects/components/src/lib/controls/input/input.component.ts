@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, Output } from '@angular/core';
 import { makeDraggable } from '../../utils/drag';
 
 @Component({
@@ -10,11 +10,21 @@ export class InputComponent implements AfterViewInit {
     @Input()
     label: string = '';
 
+    private _value: any;
+    public get value(): any {
+        return this._value;
+    }
     @Input()
-    value: any;
+    public set value(value: any) {
+        console.log('set value', value);
+        this._value = value;
+    }
 
     @Input()
     type: 'color' | 'number' | 'text' = 'text';
+
+    @Output()
+    onChange: EventEmitter<number | string> = new EventEmitter<number | string>();
 
     constructor(private el: ElementRef) {}
 
@@ -23,14 +33,25 @@ export class InputComponent implements AfterViewInit {
         let startVal = 0;
         drag.dragStart$.subscribe(() => {
             startVal = this.value;
+            console.log('drag start ');
         });
         drag.dragMove$.subscribe((data) => {
             this.value = startVal - data.deltaY;
+            console.log('this.value', this.value);
+            this.onChange.emit(this.value);
         });
+    }
+
+    onInput(event) {
+        console.log("Val", event.target.value);
+        this.value = event.target.value;
+        console.log('Input value ', this.value);
+        this.onChange.emit(this.value);
     }
 
     onColor(event) {
         console.log(event.target.value);
         this.value = event.target.value;
+        this.onChange.emit(this.value);
     }
 }

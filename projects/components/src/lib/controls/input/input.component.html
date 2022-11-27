@@ -5,6 +5,6 @@
 
 <ng-container *ngIf="type === 'color'">
     <input [value]="value" (input)="onColor($event)" [type]="'color'" />
-    <input class="color-text-input"  type="text" [value]="value"  >
+    <input class="color-text-input" (input)="onInput($event)"  type="text" [value]="value"  >
 </ng-container>
 

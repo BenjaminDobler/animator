@@ -1,4 +1,3 @@
-Property Inspector
 
 <div class="panel">
     <table *ngIf="groups$ | async; let groups">
@@ -8,14 +7,17 @@ Property Inspector
                 <th class="value">
                     <ng-container *ngFor="let property of group.data">
                         <ng-container *ngFor="let control of property.controls">
-                            <ra-input [type]="property.type" [style.flex]="property.flex" [label]="property.sub" *ngIf="control === 'number' || control === 'color'" [value]="selectedAnimatable[property.property]|async"></ra-input>
-                            <ra-slider raResize [style.flex]="property.flex" *ngIf="control === 'slider'" [min]="property.min" [max]="property.max" [value]="selectedAnimatable[property.property]|async"></ra-slider>
+                            <ra-input (onChange)="selectedAnimatable[property.property].next($event)" [type]="property.type" [style.flex]="property.flex" [label]="property.sub" *ngIf="control === 'number' || control === 'color'" [value]="selectedAnimatable[property.property]|async"></ra-input>
+                            <ra-slider (change)="selectedAnimatable[property.property].next($event)" raResize [style.flex]="property.flex" *ngIf="control === 'slider'" [min]="property.min" [max]="property.max" [value]="selectedAnimatable[property.property]|async"></ra-slider>
                         </ng-container>
                     </ng-container>
                 </th>
             </tr>
         </tbody>
     </table>
+
+    <ra-button (click)="newElement()" label="New Element"></ra-button>
+<ra-button (click)="newDummyElement()" label="New Dummy"></ra-button>
 </div>
 
 <!-- <div style="display: flex; flex-direction: column" *ngIf="groups$ | async; let groups">
@@ -39,5 +41,5 @@ Property Inspector
     </ng-container>
 </div>
 
-<button (click)="newElement()">New Element</button>
-<button (click)="newDummyElement()">New Dummy</button>
+
+

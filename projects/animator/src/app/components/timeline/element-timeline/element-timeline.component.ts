@@ -23,6 +23,8 @@ export class ElementTimelineComponent implements OnInit {
   get timeline() {
     return this._timeline;
   }
+
+  expanded = true;
   private _timeline: ElementTimeline;
 
   @Input()

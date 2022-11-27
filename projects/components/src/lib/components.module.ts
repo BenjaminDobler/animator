@@ -4,6 +4,7 @@ import { ComponentsComponent } from './components.component';
 import { InputComponent } from './controls/input/input.component';
 import { SliderComponent } from './controls/slider/slider.component';
 import { ResizeDirective } from './directives/resize.directive';
+import { RaButtonComponent } from './ra-button/ra-button.component';
 
 
 
@@ -12,7 +13,8 @@ import { ResizeDirective } from './directives/resize.directive';
     ComponentsComponent,
     InputComponent,
     SliderComponent,
-    ResizeDirective
+    ResizeDirective,
+    RaButtonComponent
   ],
   imports: [
     CommonModule
@@ -21,7 +23,8 @@ import { ResizeDirective } from './directives/resize.directive';
     ComponentsComponent,
     InputComponent,
     SliderComponent,
-    ResizeDirective
+    ResizeDirective,
+    RaButtonComponent
   ]
 })
 export class ComponentsModule { }

@@ -41,7 +41,7 @@ export class AnimatableElementComponent implements OnInit, AfterViewInit, OnDest
         .pipe(takeUntil(this.destroy$))
         .subscribe(([positionX, positionY, opacity, rotation, width, height]) => {
             this.el.nativeElement.style.transform = `translate(${positionX}px,${positionY}px) rotate(${rotation}deg)`;
-            this.el.nativeElement.style.opacity = opacity;
+            this.el.nativeElement.style.opacity = opacity / 100;
             this.el.nativeElement.style.width = width + 'px';
             this.el.nativeElement.style.height = height + 'px';
 
